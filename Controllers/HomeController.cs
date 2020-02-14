@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OdeToFood.Data.Services;
+
 
 namespace OdeToFood.Web.Controllers
 {
     public class HomeController : Controller
     {
+        readonly IRestaurantData RestaurantDb;
+
+        public HomeController(IRestaurantData RestaurantDb)
+        {
+            this.RestaurantDb = RestaurantDb;
+        }  
         public ActionResult Index()
         {
-            return View();
+            var model = RestaurantDb.GetAll();
+            return View(model);
         }
 
         public ActionResult About()
